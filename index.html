@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário - 2 Aninhos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0A74D1; /* Azul Patrulha */
+            --secondary-color: #FF4B4B; /* Vermelho */
+            --accent-color: #FFD23F; /* Amarelo */
+            --text-color: #222;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(10, 116, 209, 0.25);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .light-theme {
+            --primary-color: #FF6BCB;
+            --secondary-color: #6CD3FF;
+            --accent-color: #FFD166;
+            --text-color: #333;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --border-color: rgba(255, 107, 203, 0.4);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0A74D1 0%, #6FB6FF 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        /* Páginas */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .light-theme .page {
+            background-image: url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80&brightness=1.1');
+        }
+        
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Partículas de fundo */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Botões de controle */
+        .control-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .light-theme .control-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        /* Botão de voltar */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .light-theme .back-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        /* Página 1 - Convite Principal */
+        .logo {
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 var(--accent-color);
+            animation: bounce 2s infinite, fadeInDown 1s ease;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 5px dashed var(--secondary-color);
+        }
+        
+        .light-theme .logo {
+            text-shadow: 3px 3px 0 var(--accent-color);
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease 0.3s both;
+            text-align: center;
+            text-shadow: 2px 2px 0 white;
+            font-weight: bold;
+        }
+        
+        .light-theme .subtitle {
+            color: var(--secondary-color);
+        }
+        
+        .age-number {
+            font-size: 10rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-shadow: 5px 5px 0 var(--accent-color);
+            animation: pulse 2s infinite, bounce 3s infinite;
+            margin: 20px 0;
+        }
+        
+        /* Botão de abrir convite */
+        .open-invite-btn {
+            margin-top: 40px;
+            background: var(--accent-color);
+            border: 4px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: float 4s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            min-width: 300px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .open-invite-btn:hover:not(.loading) {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 107, 203, 0.4);
+        }
+        
+        .open-invite-btn.loading {
+            cursor: not-allowed;
+            opacity: 0.8;
+            animation: none;
+        }
+        
+        .open-invite-btn i {
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .open-invite-btn.loading i {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Página 2 - Convite Detalhado */
+        .invite-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border: 8px dotted var(--border-color);
+            animation: zoomIn 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .invite-card::before {
+            content: "🐾🐶🚒";
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+        
+        .invite-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: slideInLeft 1s ease;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+        
+        .invite-text {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            animation: slideInRight 1s ease;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .birthday-child {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .date-info {
+            text-align: center;
+            background: rgba(108, 211, 255, 0.2);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 4px dashed rgba(108, 211, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        .light-theme .date-info {
+            background: rgba(108, 211, 255, 0.25);
+            border: 4px dashed rgba(108, 211, 255, 0.5);
+        }
+        
+        .day {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .date {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .time {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            color: var(--accent-color);
+        }
+        
+        /* Contador Regressivo */
+        .countdown-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .countdown-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 107, 203, 0.15);
+            border-radius: 15px;
+            padding: 15px 10px;
+            min-width: 80px;
+            animation: flipIn 1s ease;
+            border: 3px solid rgba(255, 107, 203, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .countdown-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 203, 0.3);
+        }
+        
+        .light-theme .countdown-item {
+            background: rgba(255, 107, 203, 0.2);
+            border: 3px solid rgba(255, 107, 203, 0.4);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary-color);
+        }
+        
+        /* Página 3 - Interações */
+        .interactive-panel {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border: 8px dotted var(--border-color);
+            animation: zoomIn 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            animation: slideInUp 1s ease;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .interactive-button {
+            background: rgba(255, 209, 102, 0.9);
+            border: 4px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 25px 15px;
+            color: var(--text-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+            animation: fadeIn 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 107, 203, 0.4);
+        }
+        
+        .light-theme .interactive-button {
+            background: rgba(255, 209, 102, 0.95);
+            border: 4px solid var(--primary-color);
+            color: var(--text-color);
+        }
+        
+        .light-theme .interactive-button:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 15px 30px rgba(255, 107, 203, 0.4);
+        }
+        
+        .interactive-button i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-button:hover i {
+            transform: scale(1.2);
+            color: white;
+        }
+        
+        /* Páginas de conteúdo */
+        .content-page {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border: 8px dotted var(--border-color);
+            animation: zoomIn 0.8s ease;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+        
+        .content-body {
+            line-height: 1.6;
+            font-size: 1.2rem;
+        }
+        
+        .content-body ul {
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+        
+        .content-body li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .content-body li::before {
+            content: '🐾';
+            position: absolute;
+            left: -20px;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: white;
+            padding: 18px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            animation: pulse-green 2s infinite;
+            border: 3px solid white;
+            font-size: 1.2rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #1da851;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 1.8rem;
+        }
+        
+        /* Mapa */
+        .map-container {
+            margin-top: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            height: 400px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Galeria */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 107, 203, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 4px solid rgba(255, 107, 203, 0.3);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 107, 203, 0.4);
+            background: rgba(255, 107, 203, 0.2);
+        }
+        
+        .gallery-item i {
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Footer */
+        .footer-text {
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1000px;
+            border: 5px dashed var(--accent-color);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .light-theme .footer-text {
+            background: rgba(255, 255, 255, 0.95);
+            border: 5px dashed var(--accent-color);
+        }
+        
+        .important-note {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Elementos decorativos infantis */
+        .decorative-icons {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            z-index: 1;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: floatBalloon 10s infinite linear;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        }
+        
+        @keyframes flipIn {
+            0% { transform: perspective(400px) rotateY(90deg); opacity: 0; }
+            100% { transform: perspective(400px) rotateY(0); opacity: 1; }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes floatBalloon {
+            0% { transform: translateY(100vh) translateX(0); }
+            100% { transform: translateY(-100px) translateX(50px); }
+        }
+        
+        /* Efeito de confete */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            
+            .age-number {
+                font-size: 7rem;
+            }
+            
+            .invite-title {
+                font-size: 2.2rem;
+            }
+            
+            .invite-text {
+                font-size: 1.5rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-page, .invite-card, .interactive-panel {
+                padding: 25px;
+                margin: 15px;
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .control-buttons, .back-btn {
+                top: 15px;
+            }
+            
+            .control-btn, .back-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            
+            .open-invite-btn {
+                min-width: 250px;
+                padding: 15px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .age-number {
+                font-size: 5rem;
+            }
+            
+            .invite-title {
+                font-size: 1.8rem;
+            }
+            
+            .invite-text {
+                font-size: 1.3rem;
+            }
+            
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .open-invite-btn {
+                min-width: 200px;
+                padding: 12px 20px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fundo -->
+    <div id="particles-js"></div>
+    
+    <!-- Botão de voltar (visível apenas nas páginas 2+) -->
+    <div class="back-btn" id="back-btn" style="display: none;" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+    
+    <!-- Botões de controle -->
+    <div class="control-buttons">
+        <button class="control-btn" id="theme-toggle" title="Alternar tema">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="control-btn" id="music-toggle" title="Ativar/desativar música">
+            <i class="fas fa-music"></i>
+        </button>
+        <button class="control-btn" id="effects-toggle" title="Ativar/desativar efeitos">
+            <i class="fas fa-magic"></i>
+        </button>
+    </div>
+    
+    <!-- Página 1: Capa do Convite -->
+    <div class="page active" id="page1">
+        <div class="container">
+            <div class="logo">ANOVERSÁRIO DO JOEL</div>
+            <div class="subtitle">VAMOS COMEMORAR JUNTOS</div>
+            <div class="subtitle">OS 2 ANINHOS DO</div>
+            <div class="birthday-child">Joel Muienga</div>
+            
+            <div class="age-number">2</div>
+            
+            <button class="open-invite-btn" id="openInviteBtn" onclick="openInvite()">
+                <span id="btnText">CLIQUE PARA VER O CONVITE</span>
+                <i id="btnIcon" class="fas fa-paw"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Página 2: Convite Detalhado -->
+    <div class="page" id="page2">
+        <div class="container">
+            <div class="invite-card">
+                <h1 class="invite-title">Convite Especial</h1>
+                <p class="invite-text">VENHA CELEBRAR COMIGO MEUS 2 ANINHOS!</p>
+                
+                <div class="birthday-child">🎀 Joel Muienga 🎀</div>
+                
+                <div class="date-info">
+                    <div class="day">Sábado</div>
+                    <div class="date">14 de Março de 2026</div>
+                    <div class="time">A PARTIR DAS 15H00</div>
+                </div>
+                
+                <!-- Contador Regressivo -->
+                <div class="countdown-container">
+                    <div class="countdown-title">Contagem Regressiva</div>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="days">00</div>
+                            <div class="countdown-label">Dias</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="hours">00</div>
+                            <div class="countdown-label">Horas</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="minutes">00</div>
+                            <div class="countdown-label">Minutos</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="seconds">00</div>
+                            <div class="countdown-label">Segundos</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="open-invite-btn" onclick="goToPage('page3')">
+                        VER DETALHES DA FESTA
+                        <i class="fas fa-gifts"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 3: Menu Interativo -->
+    <div class="page" id="page3">
+        <div class="container">
+            <div class="interactive-panel">
+                <h2 class="panel-title">DETALHES DA FESTINHA</h2>
+                
+                <div class="button-grid">
+                    <div class="interactive-button" onclick="goToPage('pageLocal')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        LOCAL DA FESTA
+                    </div>
+                    
+                    <div class="interactive-button" onclick="goToPage('pagePresenca')">
+                        <i class="fas fa-calendar-check"></i>
+                        CONFIRMAR PRESENÇA
+                    </div>
+                    
+                    <div class="interactive-button" onclick="goToPage('pageTema')">
+                        <i class="fas fa-palette"></i>
+                        TEMA DA FESTA
+                    </div>
+                    
+                    <div class="interactive-button" onclick="goToPage('pagePresentes')">
+                        <i class="fas fa-gift"></i>
+                        SUGESTÕES DE PRESENTES
+                    </div>
+                    
+                    <div class="interactive-button" onclick="goToPage('pageGaleria')">
+                        <i class="fas fa-images"></i>
+                        FOTINHOS
+                    </div>
+                    
+                    <div class="interactive-button" onclick="showSurprise()">
+                        <i class="fas fa-star"></i>
+                        SURPRESA
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 4: Local -->
+    <div class="page" id="pageLocal">
+        <div class="container">
+            <div class="content-page">
+                <h2 class="content-title">LOCAL DA FESTINHA</h2>
+                <div class="content-body">
+                    <p>A festinha será em nossa casa, decorada especialmente para esse dia!</p>
+                    <p><span class="highlight">Endereço:</span> Aldeia S.OS Lubango</p>
+                    <p><span class="highlight">Referência:</span> Entrada principal da Aldeia S.OS Lubango</p>
+                    
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps?q=Aldeia%20S.OS%20Lubango&output=embed"
+                            width="100%"
+                            height="400"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <p style="text-align:center; margin-top:8px; font-size:0.95rem;">Se o mapa não carregar, <a href="https://www.google.com/maps?q=Aldeia%20S.OS%20Lubango" target="_blank">clique aqui para abrir no Google Maps</a>.</p>
+                    </div>
+                    
+                    <p style="margin-top: 20px;">Teremos na festa:</p>
+                    <ul>
+                        <li>Espaço kids com brinquedos e atividades</li>
+                        
+                        <li>Área para os pais relaxarem</li>
+                        <li>Decoração especial da Patrulha Canina</li>
+                        <li>Comida gostosa e saudável para as crianças</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 5: Confirmar Presença -->
+    <div class="page" id="pagePresenca">
+        <div class="container">
+            <div class="content-page">
+                <h2 class="content-title">CONFIRME SUA PRESENÇA</h2>
+                <div class="content-body">
+                    <p>Sua confirmação é <span class="highlight">muito importante</span> para prepararmos tudo!</p>
+                    <p><span class="highlight">Prazo para confirmação:</span> Até 10 de Março</p>
+                    
+                    <div style="background: rgba(108, 211, 255, 0.2); padding: 20px; border-radius: 15px; margin: 20px 0; border: 4px dashed rgba(108, 211, 255, 0.5);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px;">Clique abaixo para confirmar via WhatsApp:</h3>
+                        
+                                <a href="https://wa.me/244924637344?text=Olá!%20Confirmo%20minha%20presença%20na%20festa%20de%202%20anos%20do%20Joel%20Muienga!%20🎉" 
+                           class="whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            CONFIRMAR PRESENÇA
+                        </a>
+                        
+                        <p style="margin-top: 15px; font-size: 0.9rem;">Ou ligue para: <span class="highlight">(+244) 924637344</span></p>
+                    </div>
+                    
+                    <p><span class="highlight">Ao confirmar, por favor informe:</span></p>
+                    <ul>
+                        <li>Quantas crianças virão (e as idades)</li>
+                        <li>Se precisam de cadeirinha especial</li>
+                        <li>Alguma alergia ou restrição alimentar</li>
+                        <li>Se vão usar a piscina (trazer roupa de banho)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 6: Tema da Festa -->
+    <div class="page" id="pageTema">
+        <div class="container">
+            <div class="content-page">
+                <h2 class="content-title">TEMA DA FESTA</h2>
+                <div class="content-body">
+                    <p>A festinha terá o tema <span class="highlight">"PATRULHA CANINA"</span> que o Joel adora!</p>
+                    
+                    <div style="background: rgba(255, 107, 203, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 4px dashed rgba(255, 107, 203, 0.5);">
+                        <ul>
+                            <li><span class="highlight">DECORAÇÃO:</span> Colorida com os personagens da Patrulha Canina</li>
+                            <li><span class="highlight">MÚSICA:</span> Trilha animada e temas da Patrulha Canina</li>
+                            <li><span class="highlight">ATIVIDADES:</span> Pintura facial, escultura de balões e cantinho da leitura</li>
+                            <li><span class="highlight">COMIDA:</span> Lanches saudáveis e divertidos em formato de bichinhos</li>
+                            <li><span class="highlight">LEMBRANCINHA:</span> Kit especial com atividades da Patrulha Canina</li>
+                        </ul>
+                    </div>
+                    
+                    <p><span class="highlight">Programação da festa:</span></p>
+                    <ul>
+                        <li>15h00 - Chegada e recepção</li>
+                        <li>15h30 - Atividades e brincadeiras</li>
+                        <li>16h30 - Parabéns e cortar do bolo</li>
+                        <li>17h00 - Lanche e brincadeiras livres</li>
+                        <li>18h00 - Entrega das lembrancinhas</li>
+                    </ul>
+                    
+                    <p style="margin-top: 20px; font-style: italic; text-align: center;">
+                        <span class="highlight">Venham vestidos com roupas confortáveis para brincar!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 7: Sugestões de Presentes -->
+    <div class="page" id="pagePresentes">
+        <div class="container">
+            <div class="content-page">
+                <h2 class="content-title">SUGESTÕES DE PRESENTES</h2>
+                <div class="content-body">
+                    <p>Sua presença já é o melhor presente! Mas se quiser presentear, aqui estão algumas ideias:</p>
+                    
+                    <div class="gallery-container">
+                        <div class="gallery-item">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="gallery-item">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="gallery-item">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                    </div>
+                    
+                    <ul style="margin-top: 20px;">
+                        <li><span class="highlight">LIVROS INFANTIS</span> - Para estimular a leitura</li>
+                        <li><span class="highlight">BRINQUEDOS EDUCATIVOS</span> - Quebra-cabeças, blocos de montar</li>
+                        <li><span class="highlight">MATERIAL DE ARTE</span> - Giz de cera, massa de modelar</li>
+                        <li><span class="highlight">ROUPAS TAMANHO 2-3 ANOS</span> - Roupas confortáveis para brincar</li>
+                        <li><span class="highlight">PRODUTOS DE BANHO</span> - Toalhas com capuz, esponjas divertidas</li>
+                        <li><span class="highlight">CALÇADOS Nº 22-23</span> - Sapatos confortáveis</li>
+                    </ul>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 209, 102, 0.3); border-radius: 10px; border: 3px dashed var(--accent-color);">
+                        <p style="margin: 0;"><span class="highlight">Dica:</span> O Joel Muienga adora animais, cores vivas e texturas diferentes!</p>
+                    </div>
+                    
+                    <p style="margin-top: 20px; text-align: center; font-style: italic;">
+                        <span class="highlight">O mais importante é comemorar juntos esse dia especial!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Página 8: Galeria -->
+    <div class="page" id="pageGaleria">
+        <div class="container">
+            <div class="content-page">
+                <h2 class="content-title">FOTINHOS ESPECIAIS</h2>
+                <div class="content-body">
+                    <p>Acompanhe o crescimento da Joel Muienga! Em breve, fotos da festinha.</p>
+                    
+                    <div class="gallery-container">
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/1.jpeg" alt="Foto 1">
+                        </div>
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/2.jpeg" alt="Foto 2">
+                        </div>
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/3.jpeg" alt="Foto 3">
+                        </div>
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/4.jpeg" alt="Foto 4">
+                        </div>
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/5.jpeg" alt="Foto 5">
+                        </div>
+                        <div class="gallery-item" onclick="playSound('click')">
+                            <img src="img/6.jpeg" alt="Foto 6">
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; text-align: center;">
+                        <span class="highlight">Clique nos ícones para fazer barulhinhos divertidos!</span>
+                    </p>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button onclick="showSurprise()" style="background: var(--primary-color); color: white; border: 4px solid var(--accent-color); padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-size: 1.2rem;">
+                            <i class="fas fa-magic"></i> VER SURPRESA ESPECIAL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Áudio para música de fundo -->
+    <audio id="background-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-children-493.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Estado da aplicação
+        let currentPage = 'page1';
+        let previousPage = null;
+        let isMusicPlaying = false;
+        let areEffectsActive = true;
+        let isOpeningInvite = false;
+        const bgMusic = document.getElementById('background-music');
+        const backBtn = document.getElementById('back-btn');
+        const openInviteBtn = document.getElementById('openInviteBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        
+        // Sistema de navegação por páginas
+        function goToPage(pageId) {
+            playSound('open');
+            
+            previousPage = currentPage;
+            currentPage = pageId;
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId !== 'page1' && pageId !== 'page2') {
+                backBtn.style.display = 'flex';
+            } else {
+                backBtn.style.display = 'none';
+            }
+            
+            window.scrollTo(0, 0);
+            
+            if (pageId === 'page2') {
+                updateCountdown();
+            }
+        }
+        
+        function goBack() {
+            if (previousPage) {
+                playSound('close');
+                goToPage(previousPage);
+            }
+        }
+        
+        // Abrir convite
+        function openInvite() {
+            if (isOpeningInvite) {
+                console.log("Já está abrindo o convite...");
+                return;
+            }
+            
+            isOpeningInvite = true;
+            console.log("Iniciando abertura do convite...");
+            
+            openInviteBtn.classList.add('loading');
+            btnText.textContent = 'PREPARANDO SURPRESAS...';
+            btnIcon.className = 'fas fa-spinner';
+            
+            playSound('magic');
+            createConfetti();
+            
+            setTimeout(() => {
+                console.log("Carregamento concluído, indo para página 2...");
+                
+                btnText.textContent = 'CLIQUE PARA VER O CONVITE';
+                btnIcon.className = 'fas fa-paw';
+                openInviteBtn.classList.remove('loading');
+                
+                goToPage('page2');
+                
+                isOpeningInvite = false;
+                
+                console.log("Convite aberto com sucesso!");
+            }, 2000);
+        }
+        
+        // Sistema de contador regressivo
+        function updateCountdown() {
+            const targetDate = new Date('March 14, 2026 15:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                
+                if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+        
+        // Atualizar contador a cada segundo
+        setInterval(() => {
+            if (currentPage === 'page2') {
+                updateCountdown();
+            }
+        }, 1000);
+        
+        // Sistema de tema claro/escuro
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            const icon = this.querySelector('i');
+            
+                if (document.body.classList.contains('light-theme')) {
+                icon.className = 'fas fa-sun';
+                this.setAttribute('title', 'Alternar para tema escuro');
+                particlesJS("particles-js", {
+                    particles: {
+                        number: { value: 60, density: { enable: true, value_area: 800 } },
+                        color: { value: "#0A74D1" },
+                        line_linked: { color: "#6FB6FF" }
+                    }
+                });
+            } else {
+                icon.className = 'fas fa-moon';
+                this.setAttribute('title', 'Alternar para tema claro');
+                particlesJS("particles-js", {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#0A74D1" },
+                        line_linked: { color: "#6FB6FF" }
+                    }
+                });
+            }
+            
+            playSound('switch');
+        });
+        
+        // Sistema de música
+        document.getElementById('music-toggle').addEventListener('click', function() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                this.querySelector('i').className = 'fas fa-music';
+                this.setAttribute('title', 'Ativar música de fundo');
+            } else {
+                bgMusic.play().catch(e => {
+                    console.log("Autoplay bloqueado. Clique novamente.");
+                    document.addEventListener('click', function enableMusic() {
+                        bgMusic.play();
+                        document.removeEventListener('click', enableMusic);
+                    }, { once: true });
+                });
+                this.querySelector('i').className = 'fas fa-volume-up';
+                this.setAttribute('title', 'Desativar música de fundo');
+            }
+            isMusicPlaying = !isMusicPlaying;
+            playSound('click');
+        });
+        
+        // Sistema de efeitos
+        document.getElementById('effects-toggle').addEventListener('click', function() {
+            areEffectsActive = !areEffectsActive;
+            const icon = this.querySelector('i');
+            
+            if (areEffectsActive) {
+                icon.className = 'fas fa-magic';
+                this.setAttribute('title', 'Desativar efeitos especiais');
+                document.body.style.animationPlayState = 'running';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+                particlesJS("particles-js", {
+                    particles: { number: { value: 80 } }
+                });
+            } else {
+                icon.className = 'fas fa-ban';
+                this.setAttribute('title', 'Ativar efeitos especiais');
+                document.body.style.animationPlayState = 'paused';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.animationPlayState = 'paused';
+                });
+                particlesJS("particles-js", {
+                    particles: { number: { value: 0 } }
+                });
+            }
+            
+            playSound('magic');
+        });
+        
+        // Efeitos sonoros
+        function playSound(type) {
+            if (!areEffectsActive) return;
+            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            switch(type) {
+                case 'click':
+                    playBeep(800, 0.1);
+                    break;
+                case 'open':
+                    playBeep(600, 0.2);
+                    break;
+                case 'close':
+                    playBeep(400, 0.2);
+                    break;
+                case 'switch':
+                    playBeep(1200, 0.15);
+                    break;
+                case 'magic':
+                    playMagicSound();
+                    break;
+            }
+        }
+        
+        function playBeep(frequency, duration) {
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch(e) {
+                console.log("Erro ao reproduzir som:", e);
+            }
+        }
+        
+        function playMagicSound() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    try {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.value = 800 + (i * 200);
+                        oscillator.type = 'sine';
+                        
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                    } catch(e) {
+                        console.log("Erro ao reproduzir som mágico:", e);
+                    }
+                }, i * 100);
+            }
+        }
+        
+        // Funções especiais
+        function showSurprise() {
+            playSound('magic');
+            createConfetti();
+            
+            const surpriseMessage = document.createElement('div');
+            surpriseMessage.style.position = 'fixed';
+            surpriseMessage.style.top = '50%';
+            surpriseMessage.style.left = '50%';
+            surpriseMessage.style.transform = 'translate(-50%, -50%)';
+            surpriseMessage.style.background = 'rgba(255,255,255,0.95)';
+            surpriseMessage.style.color = '#0A74D1';
+            surpriseMessage.style.padding = '30px';
+            surpriseMessage.style.borderRadius = '30px';
+            surpriseMessage.style.zIndex = '10000';
+            surpriseMessage.style.textAlign = 'center';
+            surpriseMessage.style.fontSize = '1.5rem';
+            surpriseMessage.style.border = '8px dotted #FF4B4B';
+            surpriseMessage.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+            surpriseMessage.innerHTML = `
+                <h3 style="margin-bottom: 15px; color: #0A74D1;">🎉 SURPRESA! 🎉</h3>
+                <p>Na festinha teremos:</p>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li>🤹‍♀️ Palhaço divertido</li>
+                    <li>🎈 Escultura de balões</li>
+                    <li>🍭 Algodão doce e pipoca</li>
+                    <li>🎨 Pintura facial</li>
+                    <li>🎁 Brindes especiais para todas as crianças</li>
+                </ul>
+                <button onclick="this.parentElement.remove()" style="background: #0A74D1; color: white; border: 3px solid #FF4B4B; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1.2rem;">
+                    FECHAR
+                </button>
+            `;
+            
+            document.body.appendChild(surpriseMessage);
+        }
+        
+        // Efeito de confete
+        function createConfetti() {
+            if (!areEffectsActive) return;
+            
+            const colors = ['#0A74D1', '#FF4B4B', '#FFD23F', '#6FD14B', '#FFFFFF'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { 
+                        transform: `translateY(-100px) rotate(0deg)`, 
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 2000 + Math.random() * 2000,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+        
+        // Inicializar
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("Convite infantil carregado com sucesso!");
+            
+            // Inicializar partículas
+                particlesJS("particles-js", {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: ["#0A74D1", "#FF4B4B", "#FFD23F"] },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 5, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#0A74D1",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                },
+                retina_detect: true
+            });
+            
+            // Iniciar contador
+            updateCountdown();
+            
+            // Adicionar listener para prevenir múltiplos cliques
+            openInviteBtn.addEventListener('click', function(e) {
+                if (isOpeningInvite) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Clique bloqueado - já está abrindo");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
